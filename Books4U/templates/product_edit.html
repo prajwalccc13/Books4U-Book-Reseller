@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}  
+
+     <div class="ui large header">Edit Product</div>
+
+    <div class="ui middle aligned stackable grid container">
+		<div class="row">
+		    <div class="six wide column">
+                <img src="../../../../media/{{ product.display_image }}" class="ui medium centered fluid image" />
+            </div>
+		    <div class="eight wide right floated column">
+                <a class="ui tag label">{{ product.condition }}</a>
+                <a class="ui teal basic label">{{ product.category }}</a>
+                <h3 class="ui huge header" style="margin-top: 0px;" >{{ product.title }}</h3>
+                <b>Author:</b>{{ product.author }} </br>
+                <b>Seller:</b> {{ product.user }} </br>
+            </div>			
+		</div>
+    </div>
+
+    <br>
+
+    <form method="POST" action="{% url 'product-edit' product_id=product.id %}" %}>
+        {% csrf_token %}
+            Original Price: {{ product.price }}
+            <br>
+            New Price:
+            <div class="ui input focus">
+                <input type="text" name="new_price" placeholder="" / required>
+            </div>
+            Discount Price:
+            <div class="ui input focus">
+                <input type="text" name="discount_price" placeholder="">
+            </div>
+            <br>
+            Total Quantity:
+            <input type="number" name="total_quantity" min="1" / required>
+            <br>
+            Remaining Quantity:
+            <input type="number" name="remaining_quantity" min="1" / required>
+            <br>
+            <button type="submit" class="ui grey button">Add Report</button>
+    </form>
+
+
+{% endblock content %}

@@ -1,0 +1,214 @@
+{% extends 'base.html' %}
+
+{% block content %}  
+
+  <div class="ui middle aligned stackable grid container">
+		<div class="row">
+		  <div class="six wide column">
+				<img src="../../../media/{{ product.display_image }}" class="ui medium centered fluid image" />
+			</div>
+			<div class="eight wide right floated column">
+        <a class="ui tag label">{{ product.condition }}</a>
+        <a class="ui teal basic label">{{ product.category }}</a>
+        <h3 class="ui huge header" style="margin-top: 0px;" >{{ product.title }}</h3>
+        <b>Author:</b>{{ product.author }} </br>
+        <b>Seller:</b> {{ product.user }} </br>
+        <b>Price:</b> 
+        
+        {% if product.discount_price %}
+          Rs <strike> {{ product.price }}</strike>
+          {{ product.discount_price }}
+        {% else %}
+          Rs {{ product.price }}
+        {% endif %}
+
+				<a href="{{ product.get_add_to_cart_url }}">  <button class="ui blue button">Add to cart</button></a>
+        <a href="{{ product.get_remove_from_cart_url }}"><button class="ui inverted red button">Remove from cart</button></a>
+
+        <br><br>
+        <a class="ui red label" href="../report/{{ product.id }}"> report </a>
+
+			</div>			
+		</div>
+  </div>
+
+    <div class="ui section divider"></div>
+
+    <h3 class="ui huge header" style="margin-top: 0px;" >
+      About Product  
+    </h3>
+    <div class="ui small images">
+      {% if product.dec_image1 %}
+        <img src="../../media/{{ product.dec_image1 }}">
+      {% endif %}
+      {% if product.dec_image2 %}
+        <img src="../../media/{{ product.dec_image2 }}">
+      {% endif %}
+      {% if product.dec_image3 %}
+        <img src="../../media/{{ product.dec_image3 }}">
+      {% endif %}
+      {% if product.dec_image4 %}
+        <img src="../../media/{{ product.dec_image4 }}">
+      {% endif %}
+      {% if product.dec_image5 %}
+        <img src="../../media/{{ product.dec_image5 }}">
+      {% endif %}
+    </div>
+
+  <div class="ui section divider"></div>
+
+    <div class="ui card">
+      <div class="content">
+        <div class="header">Sold By: <a href="../../profile/{{ product.user.id }}/product/">{{ product.user }}</a></div>
+        {% comment %} <div class="meta">2 days ago</div> {% endcomment %}
+      </div>
+    </div>
+
+    <div class="ui card">
+      <div class="content">
+        <div class="header">Seller Rating</a></div>
+        <div class="ui star rating">
+            <i class="icon selected"></i>
+            <i class="icon selected"></i>
+            <i class="icon selected"></i>
+            <i class="icon selected"></i>
+            <i class="icon selected"></i>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>{{ five }}</strong>
+        </div>
+        <br>
+        <div class="ui star rating">
+            <i class="icon selected"></i>
+            <i class="icon selected"></i>
+            <i class="icon selected"></i>
+            <i class="icon selected"></i>
+            <i class="icon"></i>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>{{ four }}</strong>
+        </div>
+        <br>
+        <div class="ui star rating">
+            <i class="icon selected"></i>
+            <i class="icon selected"></i>
+            <i class="icon selected"></i>
+            <i class="icon "></i>
+            <i class="icon"></i>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>{{ three }}</strong>
+          </div>
+          <br>
+          <div class="ui star rating">
+            <i class="icon selected"></i>
+            <i class="icon selected"></i>
+            <i class="icon "></i>
+            <i class="icon "></i>
+            <i class="icon"></i>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>{{ two }}</strong>
+          </div>
+          <br>
+          <div class="ui star rating">
+            <i class="icon selected"></i>
+            <i class="icon "></i>
+            <i class="icon "></i>
+            <i class="icon "></i>
+            <i class="icon"></i>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>{{ one }}</strong>
+        </div>
+      </div>
+    </div>
+
+      
+  <div class="ui section divider"></div>
+
+    <h3 class="ui huge header" style="margin-top: 0px;" >
+      Description:
+    </h3>
+    <p>
+      {{ product.description }}
+    </p>
+
+
+  {% if reviews %}
+
+    <h3 class="ui huge header" style="margin-top: 0px;" >
+      Reviews
+    </h3>
+      {% for review in reviews %}
+        <div class="ui segment">
+          <p>
+            <div class="ui star rating">
+              {% if review.rating is 5 %}
+                <i class="icon selected"></i>
+                <i class="icon selected"></i>
+                <i class="icon selected"></i>
+                <i class="icon selected"></i>
+                <i class="icon selected"></i>
+              {% endif %}
+              {% if review.rating is 4 %}
+                <i class="icon selected"></i>
+                <i class="icon selected"></i>
+                <i class="icon selected"></i>
+                <i class="icon selected"></i>
+                <i class="icon"></i>
+              {% endif %}
+              {% if review.rating is 3 %}
+                <i class="icon selected"></i>
+                <i class="icon selected"></i>
+                <i class="icon selected"></i>
+                <i class="icon "></i>
+                <i class="icon"></i>
+              {% endif %}
+              {% if review.rating is 2 %}
+                <i class="icon selected"></i>
+                <i class="icon selected"></i>
+                <i class="icon "></i>
+                <i class="icon "></i>
+                <i class="icon"></i>
+              {% endif %}
+              {% if review.rating is 1 %}
+                <i class="icon selected"></i>
+                <i class="icon "></i>
+                <i class="icon "></i>
+                <i class="icon "></i>
+                <i class="icon"></i>
+              {% endif %}
+            </div>
+            <h3 class="ui header"> {{ review.user }}</h3>
+            <strong>SAYS:</strong> {{ review.comment }}
+          </p>
+        </div>
+      {% endfor %}
+  {% endif %}
+
+  <div class="ui center aligned grid">
+    <form method="POST" action={% url 'review' %}>
+      {% csrf_token %}
+      <div class="ui form">
+        <div class="field">
+          <ul class="rate-area">
+            <input type="radio" id="5-star" name="Rating" value="5" /><label for="5-star" title="Amazing">5 stars</label>
+            <input type="radio" id="4-star" name="Rating" value="4" /><label for="4-star" title="Good">4 stars</label>
+            <input type="radio" id="3-star" name="Rating" value="3" /><label for="3-star" title="Average">3 stars</label>
+            <input type="radio" id="2-star" name="Rating" value="2" /><label for="2-star" title="Not Good">2 stars</label>
+            <input type="radio" id="1-star" name="Rating" value="1" /><label for="1-star" title="Bad">1 star</label>
+          </ul>
+          <label>Review the Seller</label>
+          <textarea rows="3" name="Comment"></textarea>
+          <input type="hidden" name="product_id" value={{ product.id }}>
+          <button type="submit" class="ui grey button">Add Review</i></input>
+        </div> 
+      </div>
+    </form>
+  </div>
+
+<script>
+    $('.rating')
+    .rating({
+      initialRating: 3,
+      maxRating: 5
+    })
+  ;
+</script>
+
+{% endblock content %}
+
+
+
+

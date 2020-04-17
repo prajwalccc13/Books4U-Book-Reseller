@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+
+    {% comment %} <h4> Add Review </h4>
+      <form action="{% url 'home' %}" method="post">
+        {% csrf_token %}
+        <ul class="rate-area">
+          <input type="radio" id="5-star" name="rating" value="5" /><label for="5-star" title="Amazing">5 stars</label>
+	        <input type="radio" id="4-star" name="rating" value="4" /><label for="4-star" title="Good">4 stars</label>
+	        <input type="radio" id="3-star" name="rating" value="3" /><label for="3-star" title="Average">3 stars</label>
+	        <input type="radio" id="2-star" name="rating" value="2" /><label for="2-star" title="Not Good">2 stars</label>
+	        <input type="radio" id="1-star" name="rating" value="1" /><label for="1-star" title="Bad">1 star</label>
+	      </ul>
+        Review: <textarea name="comment" id="comment" rows="4" cols='25'></textarea><br>
+        <input type="submit" value="Review" />
+        
+      </form> {% endcomment %}
+
+
+{% block content %}
+
+    </br>
+
+    <div class="ui center aligned grid">
+      <h3 class="ui top attached header">
+        <a href="{% url 'latest_product' order="asc" %}">Latest Products </a>
+      </h3>
+        <div class="ui attached segment">
+          <div class="ui link cards centered">
+            {% for product in latest %}
+                    <div class="card">
+                        <a class="image" href="product/{{ product.id }}/">
+                            <img src="../../media/{{ product.display_image }}">
+                        </a>
+                        <div class="content">
+                            <a class="ui black label">{{ product.condition.name }}</a>
+                            <div class="header black">
+                                <a href="product/{{ product.id }}/">
+                                    {{ product.title }} 
+                                </a>
+                            </div>
+                            <div class="meta">
+                                <a>{{ product.author }} </a>
+                            </div>
+                            <div class="description">
+                                <br>
+                                {% if product.discount_price %}
+                                    Rs <strike> {{ product.price }}</strike>
+                                    {{ product.discount_price }}
+                                {% else %}
+                                    Rs {{ product.price }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <span class="right floated">
+                                {{ product.category.name }}
+                            </span>
+                            <span>
+                                <i class="user icon"></i>
+                                {{ product.user }}
+                            </span>
+                        </div>
+                </div>
+            {% endfor %}
+          </div>
+        </div>
+    </div>
+
+    <div class="ui center aligned grid">
+      <h3 class="ui top attached header">
+        <a href="{% url 'trending' %}">Trending </a>
+        <img src="../../static/trend.png" height=25 weidth=25>
+      </h3>
+      <div class="ui attached segment">
+          <div class="ui link cards centered">
+            {% for product in products %}
+                    <div class="card">
+                        <a class="image" href="product/{{ product.id }}/">
+                            <img src="../../media/{{ product.display_image }}">
+                        </a>
+                        <div class="content">
+                            <a class="ui black label">{{ product.condition.name }}</a>
+                            <div class="header black">
+                                <a href="product/{{ product.id }}/">
+                                    {{ product.title }} 
+                                </a>
+                            </div>
+                            <div class="meta">
+                                <a>{{ product.author }} </a>
+                            </div>
+                            <div class="description">
+                                <br>
+                                {% if product.discount_price %}
+                                    Rs <strike> {{ product.price }}</strike>
+                                    {{ product.discount_price }}
+                                {% else %}
+                                    Rs {{ product.price }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <span class="right floated">
+                                {{ product.category.name }}
+                            </span>
+                            <span>
+                                <i class="user icon"></i>
+                                {{ product.user }}
+                            </span>
+                        </div>
+                  </div>
+            {% endfor %}
+          </div>
+      </div>
+    </div>
+
+
+    <div class="ui center aligned grid">
+      <h3 class="ui top attached header">
+            For You
+      </h3>
+      <div class="ui attached segment">
+
+          <div class="ui link cards centered">
+            {% for product in specialized %}
+                    <div class="card">
+                        <a class="image" href="product/{{ product.id }}/">
+                            <img src="../../media/{{ product.display_image }}">
+                        </a>
+                        <div class="content">
+                            <a class="ui black label">{{ product.condition.name }}</a>
+                            <div class="header black">
+                                <a href="product/{{ product.id }}/">
+                                    {{ product.title }} 
+                                </a>
+                            </div>
+                            <div class="meta">
+                                <a>{{ product.author }} </a>
+                            </div>
+                            <div class="description">
+                                <br>
+                                {% if product.discount_price %}
+                                    Rs <strike> {{ product.price }}</strike>
+                                    {{ product.discount_price }}
+                                {% else %}
+                                    Rs {{ product.price }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <span class="right floated">
+                                {{ product.category.name }}
+                            </span>
+                            <span>
+                                <i class="user icon"></i>
+                                {{ product.user }}
+                            </span>
+                        </div>
+                </div>
+            {% endfor %}
+          </div>
+      </div>
+    </div>
+
+
+{% endblock content %}

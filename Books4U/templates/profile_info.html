@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="ui secondary pointing menu">
+        {% if current_user == user %}
+            <a class="item active" href="{% url 'profile-info' %}">
+                General Information
+            </a>
+            <a class="item" href="{% url 'profile-product' user_id=user.id %}">
+                Your Products
+            </a>
+            <a class="item" href="{% url 'profile-review' user_id=user.id %}">
+                Reviews
+            </a>
+            <a class="item" href="{% url 'profile-orders' %}">
+                Your Orders
+            </a>
+        {% else %}
+            <a class="item" href="">
+                All Products
+            </a>
+            <a class="item" href="../review">
+                Reviews
+            </a>
+        {% endif %}
+    </div>
+
+    <br>
+
+    <div class="ui clearing segment">
+        <h3 class="ui left floated header">Username: </h3><div class="ui left floated">{{ user.username }}<div>
+        <br>
+        <h3 class="ui left floated header">Name: </h3><div class="ui left floated">{{ user.first_name}} {{ user.last_name }}<div>
+        <br>
+        <h3 class="ui left floated header">Email: </h3><div class="ui left floated">{{ user.email }}<div>
+        <br>
+        <h3 class="ui left floated header">Date Joined: </h3><div class="ui left floated">{{ user.date_joined }}<div>
+    </div>
+
+    <div class="ui blue labels">
+        <a class="ui label" href="{% url 'account_reset_password' %}">
+            Change Password
+        </a>
+    </div>
+
+
+
+{% endblock content %}

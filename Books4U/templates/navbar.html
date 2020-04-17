@@ -1,0 +1,69 @@
+<div class="ui inverted segment">
+  <div class="ui inverted secondary pointing menu">
+    <a class="{{ active_home }} item" href="{% url 'home' %}">
+      Home
+    </a>
+    <div class="dropdown">
+      <a class="{{ active_category }} item">Categories</a>
+      <div class="dropdown-content">
+        {% for category in category %}
+          <a href="{% url 'category_detail' pk=category.id %}">{{category.name}}</a>
+        {% endfor %}
+      </div>
+    </div>
+    </a>
+
+    <div class="right menu">
+      <form method="POST" action={% url 'search_result'%}>
+      {% csrf_token %}
+        <div class="ui search">
+          <div class="ui icon input">
+            <input type="text" name="searchword" placeholder="Search books"> 
+            <button type="submit" class="ui inverted button">&nbsp;<i class="search icon"></i></input>
+          </div>
+        </div>
+      </form>
+    </div>
+
+
+  {% if user.is_authenticated %}
+    <div class="right menu">
+      <a class="{{ active_profile }} item" href="{% url 'profile-info' %}"><i class="material-icons">account_circle</i> {{request.user}}</a>
+      <a class="item {{ active_add }}" href="{% url 'add_product' %}">
+        <i class="plus icon"></i>Add Book
+      </a>
+      <a class="item {{ active_cart }}" href="{% url 'order-summary' %}">
+        <i class="shopping cart icon"></i>Cart
+      </a>
+      <div class="dropdown">
+        <a class="item"><i class="caret down icon"></i></a>
+        <div class="dropdown-content">
+          <a href="{% url 'account_logout' %}">Logout</a>
+        </div>
+      </div>
+    </div>
+        
+    </a>
+  {% else %}
+    <div class="right menu">
+      <a class="item" href="{% url 'account_login' %}">Login</a>
+      <a class="item"href="{% url 'account_signup' %}">Signup</a>
+    </div>
+  {% endif %}
+
+  </div>
+  </div>
+
+
+
+{% comment %} <div class="ui compact menu">
+  <div class="ui simple dropdown item">
+    Dropdown
+    <i class="dropdown icon"></i>
+    <div class="menu">
+      <div class="item">Choice 1</div>
+      <div class="item">Choice 2</div>
+      <div class="item">Choice 3</div>
+    </div>
+  </div>
+</div> {% endcomment %}

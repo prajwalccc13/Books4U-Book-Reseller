@@ -1,0 +1,85 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+
+<h1>Create</h1>
+
+{{ error }}<br />
+<form  method="POST" action="{% url 'add_product' %}" enctype="multipart/form-data">
+{% csrf_token %}
+
+Name: <br />
+<input type="text" name="Title" / required>
+<br /><br />
+
+Author: <br />
+<input type="text" name="Author" /><br /><br />
+
+Category: <br />
+<!--input type="text" name="Category" -->
+
+<select name="Category">
+  {% for category in category %}
+    <option value="{{category.name}}">{{category.name}}</option>
+  {% endfor %}
+</select>
+
+<br /><br />
+Condition: <br />
+<select name="Condition">
+  {% for con in condition %}
+    <option value="{{con.name}}">{{con.name}}</option>
+  {% endfor %}
+</select>
+
+<br /><br />
+Quantity: <br />
+<input type="number" name="Quantity" min="1" / required><br /><br />
+
+<br /><br />
+
+<div class="md-form">
+  <i class="fas fa-pencil-alt prefix"></i>
+  <textarea id="form10" class="md-textarea form-control" rows="3" name="Description"></textarea>
+  <label for="form10">Description</label>
+</div>
+
+Price: <br />
+<input type="text" name="Price" / required>
+<br /><br />
+
+Pickup Location: <br />
+<input type="text" name="pickup_location" / required>
+<br /> <br />
+
+Pickup - Google Maps Coordinates: <br />
+<input type="text" name="coordinates" / required>
+<br /> <br />
+
+Product Image: <br />
+<input type="file" name="Display_Image" />
+<br /><br />
+
+Descriptive Image: <br />
+<input type="file" name="Descriptive_Image1" />
+<br /><br />
+
+Product Image: <br />
+<input type="file" name="Descriptive_Image2" />
+<br /><br />
+
+Descriptive Image: <br />
+<input type="file" name="Descriptive_Image3" />
+<br /><br />
+
+Descriptive Image: <br />
+<input type="file" name="Descriptive_Image4" />
+<br /><br />
+
+Descriptive Image: <br />
+<input type="file" name="Descriptive_Image5" />
+<br /><br />
+
+<input class="btn btn-primary" type="submit" value="Upload" />
+</form>
+{% endblock content %}

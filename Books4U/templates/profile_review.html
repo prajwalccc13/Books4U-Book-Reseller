@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="ui secondary pointing menu">
+
+        {% if current_user == user %}
+            <a class="item" href="{% url 'profile-info' %}">
+                General Information
+            </a>
+            <a class="item" href="{% url 'profile-product' user_id=user.id %}">
+                Your Products
+            </a>
+            <a class="item active" href="">
+                Your Reviews
+            </a>
+            <a class="item" href="{% url 'profile-orders' %}">
+                Your Orders
+            </a>
+        {% else %}
+            <a class="item" href="../product/">
+                All Products
+            </a>
+            <a class="item active" href="">
+                {{ user }} Reviews
+            </a>
+        {% endif %}
+    </div>
+
+
+
+    {% if reviews %}
+
+        <h3 class="ui huge header" style="margin-top: 0px;" >
+        Reviews
+        </h3>
+        {% for review in reviews %}
+            <div class="ui segment">
+            <p>
+                <div class="ui star rating">
+                {% if review.rating is 5 %}
+                    <i class="icon selected"></i>
+                    <i class="icon selected"></i>
+                    <i class="icon selected"></i>
+                    <i class="icon selected"></i>
+                    <i class="icon selected"></i>
+                {% endif %}
+                {% if review.rating is 4 %}
+                    <i class="icon selected"></i>
+                    <i class="icon selected"></i>
+                    <i class="icon selected"></i>
+                    <i class="icon selected"></i>
+                    <i class="icon"></i>
+                {% endif %}
+                {% if review.rating is 3 %}
+                    <i class="icon selected"></i>
+                    <i class="icon selected"></i>
+                    <i class="icon selected"></i>
+                    <i class="icon "></i>
+                    <i class="icon"></i>
+                {% endif %}
+                {% if review.rating is 2 %}
+                    <i class="icon selected"></i>
+                    <i class="icon selected"></i>
+                    <i class="icon "></i>
+                    <i class="icon "></i>
+                    <i class="icon"></i>
+                {% endif %}
+                {% if review.rating is 1 %}
+                    <i class="icon selected"></i>
+                    <i class="icon "></i>
+                    <i class="icon "></i>
+                    <i class="icon "></i>
+                    <i class="icon"></i>
+                {% endif %}
+                </div>
+                <h3 class="ui header"> {{ review.user }}</h3>
+                <strong>SAYS:</strong> {{ review.comment }}
+            </p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="ui floating message">
+            <p>There are not any reviews yet</p>
+        </div>
+    {% endif %}
+
+
+
+{% endblock content %}

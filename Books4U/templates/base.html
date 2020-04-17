@@ -1,0 +1,189 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>{% block head_title %}{% endblock %}</title>
+  {% block extra_head %}
+  {% endblock %}
+  {% comment %} <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"> {% endcomment %}
+  {% comment %} <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/style.min.css' %}" rel="stylesheet"> {% endcomment %}
+  {% comment %} <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> {% endcomment %}
+  {% comment %} <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> {% endcomment %}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+  <style type="text/css">
+    html,
+    body,
+    header,
+    .carousel {
+      height: 60vh;
+    }
+    @media (max-width: 740px) {
+      html,
+      body,
+      header,
+      .carousel {
+        height: 100vh;
+      }
+    }
+    @media (min-width: 800px) and (max-width: 850px) {
+      html,
+      body,
+      header,
+      .carousel {
+        height: 100vh;
+      }
+    }
+    .rate-area {
+          float: left;
+          border-style: none;
+        }
+    .rate-area:not(:checked) > input {  
+          position: absolute;
+          top: -9999px;
+          clip: rect(0,0,0,0);
+        }
+    .rate-area:not(:checked) > label {
+          float: right;
+          width: 1em;
+          padding: 0.1em;
+          overflow: hidden;
+          white-space: nowrap;
+          cursor: pointer;
+          font-size: 225%;
+          line-height: 1.2;
+          color: lightgrey;
+          text-shadow: 1px 1px #bbb;
+        }
+        .rate-area:not(:checked) > label:before { content: '★ '; }
+        .rate-area > input:checked ~ label {
+          color: gold;
+          text-shadow: 1px 1px #c60;
+          font-size: 225% !important;
+        }
+        .rate-area:not(:checked) > label:hover, .rate-area:not(:checked) > label:hover ~ label { color: gold; }
+        .rate-area > input:checked + label:hover, .rate-area > input:checked + label:hover ~ label, .rate-area > input:checked ~ label:hover, .rate-area > input:checked ~ label:hover ~ label, .rate-area > label:hover ~ input:checked ~ label {
+          color: gold;
+          text-shadow: 1px 1px goldenrod;
+        }
+        .rate-area > label:active {
+          position: relative;
+          top: 2px;
+          left: 2px;
+        }
+        {% comment %} .dropbtn {
+          background-color: #1b1c1d;
+          color: white;
+          font-size: 14px;
+          border: none;
+        } {% endcomment %}
+
+        .dropdown {
+          position: relative;
+          display: inline-block;
+        }
+
+        .dropdown-content {
+          display: none;
+          position: absolute;
+          background-color: #282828;
+          min-width: 160px;
+          box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+          z-index: 1;
+        }
+
+        .dropdown-content a {
+          color: white;
+          padding: 12px 16px;
+          text-decoration: none;
+          display: block;
+        }
+
+        {% comment %} .dropdown-content a:hover {background-color: #ddd;} {% endcomment %}
+
+        .dropdown:hover .dropdown-content {display: block;}
+
+        .dropdown:hover .dropbtn {background-color: #1b1c1d;}
+        {% comment %} .card-img-top {
+          width: 10vw;
+          height: 15vw;
+          object-fit: cover;
+        } {% endcomment %}
+  </style>
+  
+{% block head_links %}
+{% endblock %}
+</head>
+
+  {% include "navbar.html" %}
+
+<body>
+
+    {% if messages %}
+        <div class="mt-5 pt-4 fixed">
+        {% for message in messages %}
+          <div class="ui positive message">
+            <i class="close icon"></i>
+            <div class="header">
+              {{ message }}
+            </div>
+          </div>
+        {% endfor %}
+        </div>
+      <br><br>
+    {% endif %}
+    
+{% comment %} 
+    {% block content %}
+    {% endblock content %} {% endcomment %}
+
+    {% block content%}
+	    {% block messages %}
+      {% endblock %}
+    {% endblock %}
+
+    {% block content_extra %}
+    {% endblock %}
+    
+
+    {% block extra_body %}
+    {% endblock %}
+
+    {% comment %} {% include "footer.html" %} {% endcomment %}
+
+    {% comment %} <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> {% endcomment %}
+    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+
+    {% include "footer.html" %}
+    <script>
+      $('.message .close')
+        .on('click', function() {
+          $(this)
+            .closest('.message')
+            .transition('fade')
+          ;
+        })
+      ;
+
+      {% comment %} window.onload = function(){
+        $('.ui.dropdown').dropdown();
+      }; {% endcomment %}
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.css"></script>
+    {% block extra_scripts %}
+    {% endblock extra_scripts %}
+</body>
+</html>

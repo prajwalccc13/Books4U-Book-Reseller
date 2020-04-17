@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="ui secondary pointing menu">
+        {% if current_user == user %}
+            <a class="item" href="{% url 'profile-info' %}">
+                General Information
+            </a>
+            <a class="item active" href="">
+                Your Products
+            </a>
+            <a class="item" href="../review">
+                Reviews
+            </a>
+            <a class="item" href="{% url 'profile-orders' %}">
+                Your Orders
+            </a>
+        {% else %}
+            <a class="item active" href="">
+                All Products
+            </a>
+            <a class="item" href="../review">
+                Reviews
+            </a>
+        {% endif %}
+    </div>
+
+    <br>
+
+    <div class="ui center aligned grid">        
+        
+            <div class="ui link cards center">
+            {% for product in products %}
+                {% comment %} <a href="{{ product.get_absolute_url }}"> {% endcomment %}
+                    <div class="card">
+                        <a class="image" href="../../../product/{{ product.id }}/">
+                            <img src="../../../media/{{ product.display_image }}">
+                        </a>
+                        <div class="content">
+                            <a class="ui black label">{{ product.condition.name }}</a>
+                            <div class="header black">
+                                <a href="../../../product/{{ product.id }}/">
+                                    {{ product.title }} 
+                                </a>
+                            </div>
+                            <div class="meta">
+                                <a>{{ product.author }} </a>
+                            </div>
+                            <div class="description">
+                                 <br>
+                                {% if product.discount_price %}
+                                    Rs <strike> {{ product.price }}</strike>
+                                    {{ product.discount_price }}
+                                {% else %}
+                                    Rs {{ product.price }}
+                                {% endif %}
+                            </div>
+                            <a class="ui blue label" href="{% url 'product-edit' product_id=product.id %}">
+                                edit 
+                            </a>
+                        </div>
+                        <div class="extra content">
+                            <span class="right floated">
+                                {{ product.category.name }}
+                            </span>
+                            <span>
+                                <i class="user icon"></i>
+                                {{ product.user }}
+                            </span>
+                        </div>
+                    </div>
+                {% comment %} </a> {% endcomment %}
+            {% endfor %}
+            </div>
+        </div>
+
+
+
+{% endblock content %}
+
+{% block extra_scripts %}
+
+{% comment %} <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script> {% endcomment %}
+
+{% endblock extra_scripts %}

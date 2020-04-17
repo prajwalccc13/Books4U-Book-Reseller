@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="ui large header">Report</div>
+
+    <div class="ui middle aligned stackable grid container">
+		<div class="row">
+		    <div class="six wide column">
+                <img src="../../../media/{{ product.display_image }}" class="ui medium centered fluid image" />
+            </div>
+		    <div class="eight wide right floated column">
+                <a class="ui tag label">{{ product.condition }}</a>
+                <a class="ui teal basic label">{{ product.category }}</a>
+                <h3 class="ui huge header" style="margin-top: 0px;" >{{ product.title }}</h3>
+                <b>Author:</b>{{ product.author }} </br>
+                <b>Seller:</b> {{ product.user }} </br>
+            </div>			
+		</div>
+    </div>
+
+    <br>
+
+    <form method="POST" action="../../report/{{ product.id }}/" %}>
+        {% csrf_token %}
+            Reason:
+            <div class="ui input focus">
+                <input type="text" name="reason" placeholder="Reason...">
+            </div>
+            <input type="hidden" name="product_id" value={{ product.id }}></input>
+
+            <button type="submit" class="ui grey button">Add Report</button>
+    </form>
+
+
+{% endblock content %}

@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="ui secondary pointing menu">
+        {% if current_user == user %}
+            <a class="item" href="{% url 'profile-info' %}">
+                General Information
+            </a>
+            <a class="item" href="{% url 'profile-product' user_id=user.id %}">
+                Your Products
+            </a>
+            <a class="item" href="{% url 'profile-review' user_id=user.id %}">
+                Reviews
+            </a>
+            <a class="item active" href="">
+                Your Orders
+            </a>
+        {% else %}
+            <a class="item" href="">
+                All Products
+            </a>
+            <a class="item" href="../review">
+                Reviews
+            </a>
+        {% endif %}
+    </div>
+
+    <br>
+
+    {% if ordered or order_delivered %}
+        {% if ordered %}
+            <h3 class="ui header">Ordered</h3>
+            {% for order in ordered %}
+                <div class="ui clearing segment">
+                <table class="ui striped table">
+                    <thead>
+                        <tr> 
+                            Ordered On: {{ order.ordered_date }}
+                        </tr>
+                        <tr>
+                            <th>#</th>
+                            <th>Item title</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total Item Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for order_item in order.items.all %}
+                        <tr class="top aligned">
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ order_item.item.title }}</td>
+                            <td>
+                                {% if order_item.item.discount_price %}
+                                    Rs <strike> {{ order_item.item.price }}</strike>
+                                    {{ order_item.item.discount_price }}
+                                {% else %}
+                                    Rs {{ order_item.item.price }}
+                                {% endif %}
+                        </td></td>
+                            <td>{{ order_item.quantity }}</td>
+                            <td>
+                                {% if order_item.item.discount_price %}
+                                    Rs {{ order_item.get_total_discount_item_price }}
+                                    <span class="badge badge-primary">Saving Rs {{ order_item.get_amount_saved }}</span>
+                                {% else %}
+                                    Rs {{ order_item.get_total_item_price }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% if order.get_total %}
+                        <tr>
+                            <td colspan="4"><b>Order Total</b></td>
+                            <td><b>Rs {{ order.get_total }}</b></td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                    
+                </table>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+
+        {% if order_delivered %}
+            <h3 class="ui header">Order Delivered</h3>
+                {% for order in order_delivered %}
+                <div class="ui clearing segment">
+                <table class="ui striped table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Item title</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total Item Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for order_item in order.items.all %}
+                        <tr class="top aligned">
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ order_item.item.title }}</td>
+                            <td>
+                                {% if order_item.item.discount_price %}
+                                    Rs <strike> {{ order_item.item.price }}</strike>
+                                    {{ order_item.item.discount_price }}
+                                {% else %}
+                                    Rs {{ order_item.item.price }}
+                                {% endif %}
+                        </td></td>
+                            <td>{{ order_item.quantity }}</td>
+                            <td>
+                                {% if order_item.item.discount_price %}
+                                    Rs {{ order_item.get_total_discount_item_price }}
+                                    <span class="badge badge-primary">Saving Rs {{ order_item.get_amount_saved }}</span>
+                                {% else %}
+                                    Rs {{ order_item.get_total_item_price }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% if order.get_total %}
+                        <tr>
+                            <td colspan="4"><b>Order Total</b></td>
+                            <td><b>Rs {{ order.get_total }}</b></td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                    
+                </table>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% else %}
+        <div class="ui floating message">
+            <p>There are not any active orders yet.</p>
+        </div>
+    {% endif %}
+
+
+{% endblock content %}
